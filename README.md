@@ -1,4 +1,4 @@
-# Skrip Automasi MikroTik
+# Script mikrotik automation
 
 Proyek ini adalah skrip Python yang mengotomatisasi tugas pada router MikroTik menggunakan pustaka Paramiko untuk komunikasi SSH. Skrip ini memungkinkan konfigurasi jarak jauh pada router, seperti menambahkan alamat IP.
 
