@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
 import paramiko
-import sys
-# Mendapatkan input dari pengguna
+
+#input dari pengguna
 host = input('Masukan IP Router: ')
 usern = input('Masukan Username: ')
 passwd = input('Masukan Password: ')
@@ -31,19 +31,19 @@ def add_ip_address():
         print(f"Error: {e}")
 
     finally:
-        # Menutup koneksi SSH
+        # Menutup koneksi
         print('done')
 
 def dhcpClient():
     try:
-        # Meminta interface yang akan digunakan
+        # ask interface yang akan digunakan
         eth = input('Mau ether berapa? (1/2/3): ')
 
-        # Menambahkan DHCP Client
+        # add DHCP Client
         command = f'/ip/dhcp-client/add interface=ether{eth}'
         ssh_client.exec_command(command)
 
-        # Menampilkan daftar DHCP Client
+        # show daftar DHCP Client
         output = ssh_client.exec_command('/ip/dhcp-client/print')[1].read().decode()
         print(output)
 
@@ -54,25 +54,6 @@ def dhcpClient():
         print("\nProses dihentikan oleh pengguna.")
 
     finally:
-        # Menutup koneksi SSH
-        ssh_client.close()
-
-def dhcpserver():
-    try:
-        command = f'/ip/dhcp-server setup'
-        ssh_client.exec_command(command)
-
-        output = ssh_client.exec_command('/ip/dhcp-client/print')[1].read().decode()
-        print(output)
-
-    except Exception as e:
-        print(f"Error: {e}")
-
-    except KeyboardInterrupt:
-        print("\nProses dihentikan oleh pengguna.")
-
-    finally:
-        # Menutup koneksi SSH
         ssh_client.close()
 
 def natMasquerade():
@@ -93,23 +74,34 @@ def natMasquerade():
     finally:
         ssh_client.close()
 
+def IpInfo():
+    print("menampilkan tabel ip address")
+    try:
+        command = ssh_client.exec_command(f'/ip/address/print')[1].read().decode()
+        print(command)
+        
+    except Exception as e:
+        print(f"error:{e}")
+    
+    finally:
+        ssh_client.close
+
 def main():
     while True:
-        choose = int(input("1. Menambahkan IP Address \n2. Menambahkan DHCP Client\n3. Nat-masquerade firewall\nfirpilih salah satu atau ketik 0 untuk mengakhiri: "))
+        choose = int(input("1. Menambahkan IP Address \n2. Menambahkan DHCP Client\n3. Nat-masquerade firewall\n4 menampilkan ip address router \npilih salah satu atau ketik 0 untuk mengakhiri: "))
         if choose == 1:
             add_ip_address()
         elif choose == 2:
             dhcpClient()
         elif choose == 3:
             natMasquerade()
-        elif choose ==4:
-            dhcpserver()
+        elif choose == 4:
+            IpInfo()
         elif choose == 0:
             exit()
         else:
             print('error')
             exit()
         
-
 if __name__ == "__main__":
     main()

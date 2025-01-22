@@ -1,6 +1,6 @@
 # Script mikrotik automation
 
-Proyek ini adalah skrip Python yang mengotomatisasi tugas pada router MikroTik menggunakan pustaka Paramiko untuk komunikasi SSH. Skrip ini memungkinkan konfigurasi jarak jauh pada router, seperti menambahkan alamat IP.
+Proyek ini adalah skrip Python yang mengotomatisasi tugas pada router MikroTik menggunakan library Paramiko untuk berkomunikasi dengan routerOS melalui SSH. Skrip ini memungkinkan konfigurasi dasar jarak jauh pada router, seperti menambahkan alamat IP.
 
 ## Fitur
 
@@ -10,7 +10,7 @@ Proyek ini adalah skrip Python yang mengotomatisasi tugas pada router MikroTik m
 
 ## Prasyarat
 
-- Python 3.x
+- Python 3.13
 - Pustaka `paramiko`
 
 Anda dapat menginstal pustaka Paramiko dengan:
@@ -28,7 +28,7 @@ pip install paramiko
    cd <repository-directory>
    ```
 
-2. **Jalankan skrip**:
+2. **run skrip**:
 
    Eksekusi skrip dan ikuti petunjuk yang diberikan:
 
@@ -41,8 +41,6 @@ pip install paramiko
    - **Alamat IP Router**: Alamat IP dari router MikroTik Anda.
    - **Username**: Nama pengguna untuk terhubung ke router.
    - **Password**: Kata sandi yang terkait dengan nama pengguna.
-   - **Alamat IP yang Akan Ditambahkan**: (jika diminta) Alamat IP yang akan ditambahkan ke router.
-   - **Interface**: Interface tempat alamat IP akan ditambahkan.
 
 ## Contoh
 
