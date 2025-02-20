@@ -1,8 +1,11 @@
 #!/usr/bin/python
 
 import paramiko
+import pyfiglet
+
 
 #input dari pengguna
+print(pyfiglet.figlet_format("ACMRO", font="alligator"))
 host = input('Masukan IP Router: ')
 usern = input('Masukan Username: ')
 passwd = input('Masukan Password: ')
@@ -87,6 +90,7 @@ def IpInfo():
         ssh_client.close
 
 def main():
+    
     while True:
         choose = int(input("1. Menambahkan IP Address \n2. Menambahkan DHCP Client\n3. Nat-masquerade firewall\n4 menampilkan ip address router \npilih salah satu atau ketik 0 untuk mengakhiri: "))
         if choose == 1:
