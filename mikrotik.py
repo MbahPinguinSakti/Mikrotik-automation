@@ -5,7 +5,7 @@ import pyfiglet
 
 
 #input dari pengguna
-
+print(pyfiglet.figlet_format("ACMRO", font="alligator"))
 host = input('Masukan IP Router: ')
 usern = input('Masukan Username: ')
 passwd = input('Masukan Password: ')
