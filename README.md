@@ -1,6 +1,5 @@
-
+![Image](https://github.com/user-attachments/assets/1aad710f-cb9a-44fd-bdc9-2f77f0fa9f76)
 # Auto Config Mikrotik Router Os
-
 Proyek ini adalah skrip Python yang mengotomatisasi tugas pada router MikroTik menggunakan library Paramiko untuk berkomunikasi dengan routerOS melalui SSH. Skrip ini memungkinkan konfigurasi dasar jarak jauh pada router, seperti menambahkan alamat IP.
 
 ## Fitur
