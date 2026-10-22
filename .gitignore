@@ -1,0 +1,4 @@
+.claude/
+.anthropic/
+claude-env/
+*.claude.json
