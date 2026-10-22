@@ -1,55 +1,94 @@
-![Image](https://github.com/user-attachments/assets/1aad710f-cb9a-44fd-bdc9-2f77f0fa9f76)
-# Auto Config Mikrotik Router Os
-Proyek ini adalah skrip Python yang mengotomatisasi tugas pada router MikroTik menggunakan library Paramiko untuk berkomunikasi dengan routerOS melalui SSH. Skrip ini memungkinkan konfigurasi dasar jarak jauh pada router, seperti menambahkan alamat IP.
+# 🛜 ACMRO: Auto Config MikroTik RouterOS
 
-## Fitur
+Skrip Python interaktif untuk mengonfigurasi router **MikroTik** lewat **SSH**. Konfigurasi dasar seperti IP address, DHCP client, dan NAT masquerade cukup dipilih dari menu, tanpa membuka Winbox atau mengetik perintah RouterOS satu per satu.
 
-- Terhubung ke router MikroTik melalui SSH
-- Melakukan konfigurasi jarak jauh
-- Fungsionalitas contoh termasuk menambahkan alamat IP
+![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?logo=python&logoColor=white)
+![Paramiko](https://img.shields.io/badge/SSH-Paramiko-4B8BBE)
+![RouterOS](https://img.shields.io/badge/MikroTik-RouterOS-293239)
 
-## Prasyarat
+![Tampilan ACMRO](image.png)
 
-- Python 3.13
-- Pustaka `paramiko`
+---
 
-Anda dapat menginstal pustaka Paramiko dengan:
+## ✨ Fitur
+
+| Menu | Fungsi                    | Perintah RouterOS yang dijalankan                                      |
+| ---- | ------------------------- | ---------------------------------------------------------------------- |
+| 1    | Tambah IP address         | `/ip/address/add address=<ip> interface=ether<n>`                      |
+| 2    | Tambah DHCP client        | `/ip/dhcp-client/add interface=ether<n>`                               |
+| 3    | NAT masquerade (internet) | `/ip/firewall/nat/add chain=srcnat out-interface=ether<n> action=masquerade` |
+| 4    | Lihat daftar IP address   | `/ip/address/print`                                                    |
+| 0    | Keluar                    | Menutup koneksi SSH                                                    |
+
+- Setelah perintah dijalankan, hasilnya langsung ditampilkan, termasuk pesan error dari router.
+- Satu koneksi SSH dipakai untuk semua menu sampai kamu memilih keluar.
+- Password tidak tampil di layar saat diketik.
+
+---
+
+## 📋 Prasyarat
+
+- Python 3.8 atau lebih baru
+- Router MikroTik dengan **RouterOS v7** (perintah memakai format path `/ip/address/...`)
+- Layanan SSH aktif di router (**IP → Services → ssh**) dan bisa dijangkau dari komputer kamu
+- Akun router dengan hak akses `write` atau `full`
+
+---
+
+## 🚀 Instalasi
 
 ```bash
-pip install paramiko
+git clone https://github.com/MbahPinguinSakti/Mikrotik-automation.git
+cd Mikrotik-automation
+
+python3 -m venv .venv
+source .venv/bin/activate          # bash / zsh
+# source .venv/bin/activate.fish   # fish
+# .venv\Scripts\activate           # Windows
+
+pip install -r requirements.txt
 ```
 
-## Cara Penggunaan
+---
 
-1. **Kloning repositori**:
+## ▶️ Cara pakai
 
-   ```bash
-   git clone <repository-url>
-   cd <repository-directory>
-   ```
+```bash
+python3 mikrotik.py
+```
 
-2. **run skrip**:
+Masukkan IP router, username, dan password, lalu pilih menu. Untuk interface, cukup ketik nomornya (`1` untuk `ether1`) atau nama lengkapnya (`ether1`).
 
-   Eksekusi skrip dan ikuti petunjuk yang diberikan:
-
-   ```bash
-   python mikrotik.py
-   ```
-
-   Skrip akan meminta Anda untuk memasukkan informasi berikut:
-
-   - **Alamat IP Router**: Alamat IP dari router MikroTik Anda.
-   - **Username**: Nama pengguna untuk terhubung ke router.
-   - **Password**: Kata sandi yang terkait dengan nama pengguna.
-
-## Contoh
+### Contoh: router mendapat internet dari ether1, LAN di ether2
 
 ```plaintext
 Masukan IP Router: 192.168.56.1
 Masukan Username: admin
-Masukan Password: ****
-Masukan IP Address: 192.168.56.100/24
-Masukan Interface: ether1
+Masukan Password:
+
+pilih salah satu atau ketik 0 untuk mengakhiri: 2
+Mau ether berapa? (1/2/3): 1
+
+pilih salah satu atau ketik 0 untuk mengakhiri: 1
+Masukan IP Address (contoh 192.168.56.100/24): 192.168.10.1/24
+Masukan nomor interface (1/2/3): 2
+
+pilih salah satu atau ketik 0 untuk mengakhiri: 3
+out interface (1/2/3)?: 1
+
+pilih salah satu atau ketik 0 untuk mengakhiri: 0
+done
 ```
-testtttttttttttt
-test
+
+---
+
+## ⚠️ Catatan keamanan
+
+- Skrip menerima host key router secara otomatis (`AutoAddPolicy`). Ini praktis untuk lab, tapi sebaiknya hanya dipakai di jaringan yang kamu percaya.
+- Perintah langsung dijalankan di router. Coba dulu di lab atau CHR/GNS3 sebelum dipakai di router produksi.
+
+---
+
+## 📜 Lisensi
+
+Proyek ini belum memiliki lisensi. Tanpa lisensi, hak cipta tetap pada pemilik repositori.
